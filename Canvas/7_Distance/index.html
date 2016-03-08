@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Clamp</title>
+	<title>Distance</title>
 	<style>
+
 	* {
 		padding: 0;
 		margin: 0;
 	}
-	html, 
-	body {
+
+	html, body {
 		position: relative;
 		width: 100%;
 		height: 100%;
@@ -31,6 +32,7 @@
 		transform: translate(-50%, -50%);
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 	}
+
 	</style>
 </head>
 <body>
@@ -48,64 +50,65 @@
 			width = canvas.width = 960,
 			height = canvas.height = 600;
 
-/**
- * ===================================================
- */			
- 		function clamp(value, min, max) {
- 			return Math.min(Math.max(value, min), max);
- 		}
+		var boundRect = canvas.getBoundingClientRect();
 
-/**
- * ===================================================
- */ 
- 		var boundingRect = canvas.getBoundingClientRect(),
- 			mouse = {
- 				x: width / 2,
- 				y: height / 2
- 			};
+		var mouse = {
+			x: width / 2,
+			y: height / 2
+		};	
 
- 		var rect = {
- 			x: width / 2 - 200,
- 			y: height / 2 - 200,
- 			width: 400,
- 			height: 400
+ 		var circle = {
+ 			x: width / 2,
+ 			y: height / 2,
+ 			radius: 50,
+ 			color: "#222"
  		};
- 		
+
+ 		var circle2 = {
+ 			x: mouse.x,
+ 			y: mouse.y,
+ 			radius: 10,
+ 			color: "#222"
+ 		}; 
+
  		document.body.addEventListener("mousemove", function(e) {
- 			mouse.x = e.clientX - boundingRect.left;
- 			mouse.y = e.clientY - boundingRect.top;
- 		});
+ 			mouse.x = e.clientX - boundRect.left;
+ 			mouse.y = e.clientY - boundRect.top;
+ 		});	
 
  		requestAnimationFrame(function frame() {
 
  			requestAnimationFrame(frame);
 
- 			mouse.x = clamp(mouse.x, rect.x, rect.x + rect.width);
- 			mouse.y = clamp(mouse.y, rect.y, rect.y + rect.height);
+ 			var dx = circle2.x - circle.x,
+ 				dy = circle2.y - circle.y,
+ 				dist = Math.sqrt(dx * dx + dy * dy);
+
+ 			circle2.x = mouse.x;
+ 			circle2.y = mouse.y;
 
  			context.clearRect(0, 0, width, height);
 
- 			context.fillStyle = "rgba(0, 255, 0, 0.8)";
- 			context.beginPath()
- 			context.arc(mouse.x, mouse.y, 10, 0, Math.PI * 2);
+			context.fillStyle = circle.color;
+ 			context.beginPath();
+ 			context.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
+ 			context.arc(circle2.x, circle2.y, circle2.radius, 0, Math.PI * 2);
  			context.fill();
+
+ 			context.strokeStyle = "black";
+ 			context.beginPath();
+ 			context.moveTo(circle.x, circle.y);
+ 			context.lineTo(circle2.x, circle2.y); 			
+ 			context.stroke();
 
  			context.fillStyle = "black";
  			context.font = "12px Courier New";
  			context.fillText("mouse { x: " + mouse.x + ", y: " + mouse.y + " }", 10, 20);
-
- 			context.fillStyle = "rgba(0, 0, 0, 0.5)";
- 			context.fillRect(rect.x, rect.y, rect.width, rect.height);
-
- 			context.strokeStyle = "rgba(0, 255, 0, 1)";
- 			context.beginPath();
- 			context.moveTo(width / 2, height / 2);
- 			context.lineTo(mouse.x, mouse.y);
- 			context.stroke();
+ 			context.fillText("distance: " + dist, 10, 40);
 
  		});
 
 	});
-	</script>
+	</script>	
 </body>
 </html>
