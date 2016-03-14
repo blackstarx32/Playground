@@ -26,6 +26,13 @@
 		div: function(s) {
 			this.x /= s;
 			this.y /= s;
+		},
+		mag: function() {
+			return Math.sqrt(this.x * this.x + this.y * this.y);
+		},
+		norm: function() {
+			var mag = this.mag();
+			this.div(mag);
 		}
 	}
 
