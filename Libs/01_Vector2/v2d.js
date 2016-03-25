@@ -11,6 +11,20 @@
 
 	Vector.prototype = {
 		constructor: Vector,
+		init: function(x, y) {
+			this.x = x;
+			this.y = y;
+		},
+		clone: function() {
+			return new Vector(this.x, this.y);
+		},
+		negative: function() {
+			this.x = -this.x;
+			this.y = -this.y;
+		},
+		equals: function(v) {
+			return this.x == v.x && this.y == v.y;
+		},
 		add: function(v) {
 			this.x += v.x;
 			this.y += v.y;
