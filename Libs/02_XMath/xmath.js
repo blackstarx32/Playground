@@ -31,7 +31,7 @@
 		var dx = x2 - x1,
 			dy = y2 - y1;
 
-		return dx * dx + dy * dy;
+		return Math.sqrt(dx * dx + dy * dy);
 	};
 
 	return xmath;
