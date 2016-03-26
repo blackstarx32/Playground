@@ -53,6 +53,9 @@
 				this.y /= v;				
 			}
 		},
+		sqrdMag: function() {
+			return this.x * this.x + this.y * this.y;
+		},
 		mag: function() {
 			return Math.sqrt(this.x * this.x + this.y * this.y);
 		},
@@ -111,6 +114,16 @@
  	Vector.dot = function(v1, v2) {
  		return v1.x * v2.x + v1.y * v2.y;
  	};
+
+ 	Vector.lerp = function(norm, v1, v2) {
+
+ 		var v = Vector.sub(v2, v1);
+
+ 		v.mul(norm);
+ 		v.add(v1);
+
+ 		return v;
+ 	}
 
  	return Vector;
 
