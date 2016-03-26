@@ -70,6 +70,13 @@
  * STATIC FUNCTION 
  * ==============================================
  */
+ 	Vector.equal = function(v1, v2) {
+ 		return v1.x == v2.x && v1.y == v2.y;
+ 	};
+
+ 	Vector.clone = function(v) {
+ 		return new Vector(v.x, v.y);
+ 	};
 
  	Vector.add = function(v1, v2) {
  		return new Vector(v1.x + v2.x, v1.y + v2.y);
