@@ -54,10 +54,10 @@
 			}
 		},
 		sqrdMag: function() {
-			return this.x * this.x + this.y * this.y;
+			return Math.sqrt(this.x * this.x + this.y * this.y);
 		},
 		mag: function() {
-			return Math.sqrt(this.x * this.x + this.y * this.y);
+			return this.x * this.x + this.y * this.y;
 		},
 		norm: function() {
 			var mag = this.mag();
