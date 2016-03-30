@@ -28,6 +28,19 @@ public struct Vector2D
         }
     }
 
+    public float sqrMagnitude
+    {
+        get
+        {
+            return (this.x * this.x) + (this.y * this.y);
+        }
+    }
+
+    public Vector2D Add(Vector2D other)
+    {
+        return new Vector2D(this.x + other.x, this.y + other.y);
+    }
+
     public void Set(float x, float y)
     {
         this.x = x;
