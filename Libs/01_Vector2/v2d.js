@@ -65,6 +65,12 @@
 		},
 		dot: function(v) {
 			return this.x * v.x + this.y * v.y;
+		},
+		angle: function() {
+			return Math.atan2(this.y, this.x);
+		},
+		angleDeg: function() {
+			return (Math.atan2(this.y, this.x) * 180 / Math.PI + 360) % 360;
 		}
 	};
 

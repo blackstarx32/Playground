@@ -2,6 +2,9 @@
 
 	var xmath = {};
 
+	xmath.RAD_TO_DEG = Math.PI / 180;
+	xmath.DEG_TO_RAD = 180 / Math.PI;
+
 	xmath.normalize = function(value, min, max) {
 		return (value - min) / (max - min);
 	};
