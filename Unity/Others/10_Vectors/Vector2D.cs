@@ -36,9 +36,16 @@ public struct Vector2D
         }
     }
 
-    public Vector2D Add(Vector2D other)
-    {
-        return new Vector2D(this.x + other.x, this.y + other.y);
+    public static Vector2D operator+(Vector2D a, Vector2D b) {
+    	return new Vector2D(a.x + b.x, a.y + b.y);
+    }
+
+    public static Vector2D operator-(Vector2D a, Vector2D b) {
+    	return new Vector2D(a.x - b.x, a.y - b.y);
+    }
+
+    public static Vector2D operator-(Vector2D a) {
+    	return new Vector2D(-a.x, -a.y);
     }
 
     public void Set(float x, float y)
