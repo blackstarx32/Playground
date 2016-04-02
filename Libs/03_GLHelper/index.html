@@ -60,6 +60,9 @@
 
  		gl.vertexAttribPointer(aSquareVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
+ 		gl.useProgram(shaderProgram);
+ 		gl.enableVertexAttribArray(aSquareVertexPosition);
+ 		gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 
 
 	});
