@@ -2,210 +2,138 @@
  * V2D v0.2
  */
 
-var Vector2 = (function() {
+class Vector2 {
 
-	function Vector2(x, y) {
-		this.x = x || 0;
-		this.y = y || 0;
+	constructor(x = 0, y = 0) {
+		this._x = x;
+		this._y = y;
+	}//END OF CONSTRUCTOR
+
+	/**
+	 * ===================
+	 * SETTERS
+	 * ===================
+	 */
+	set x(x) {
+		this._x = x;
 	}
 
-	Vector2.prototype = {
-		constructor: Vector2,
-		magnitude: function() {
-			return Math.sqrt(this.x * this.x + this.y * this.y);
-		},
-		sqrMagnitude: function() {
-			return this.x * this.x + this.y * this.y;
-		},
-		normalize: function() {
-			var magnitude = this.magnitude();
-			this.x /= magnitude;
-			this.y /= magnitude;
-		},
-		add: function(other) {
-			this.x += other.x;
-			this.y += other.y;
-		},
-		sub: function(other) {
-			this.x -= other.x;
-			this.y -= other.y;
-		},
-		div: function(number) {
-			this.x /= number;
-			this.y /= number;
-		},
-		mul: function(number) {
-			this.x *= number;
-			this.y *= number;
-		},
-		equalTo: function(other) {
-			return this.x === other.x && this.y === other.y;
-		},
-		notEqualTo: function(other) {
-			return this.x !== other.x && this.y !== other.y;
-		},
-		negate: function() {
-			this.x = -this.x;
-			this.y = -this.y;
-		}
-	};
+	set y(y) {
+		this._y = y;
+	}
 
 	/**
-	 * =================================
-	 * VECTOR2 CONSTANTS
-	 * =================================
+	 * ===================
+	 * GETTERS
+	 * ===================
 	 */
-	Vector2.LEFT = new Vector2(-1, 0);
-	Vector2.RIGHT = new Vector2(1, 0);	
+	get x() {
+		return this._x;
+	}
 
-	Vector2.UP = new Vector2(0, -1);
-	Vector2.DOWN = new Vector2(0, 1);
+	get y() {
+		return this._y;
+	}
 
-	Vector2.ZERO = new Vector2(0, 0);
-	Vector2.ONE = new Vector2(1, 1);
+	get magnitude() {
+		return Math.sqrt(this.x * this.x + this.y * this.y);
+	}
 
+	get sqrMagnitude() {
+		return this.x * this.x + this.y * this.y;
+	}
+
+	get angle()  {
+		return Math.atan2(this.y, this.x);
+	}
+	
+	get angleDeg() {
+		return Math.atan2(this.y, this.x) * 180 / Math.PI;
+	}
 
 	/**
-	 * =================================
-	 * RETURN 
-	 * =================================
-	 */
-	return Vector2;
+	 * ===================
+	 * STATICS
+	 * ===================
+	 */	
+	static get up() {
+		return new Vector2(0, -1);
+	}
 
-})();
+	static get down() {
+		return new Vector2(0, 1);
+	}
 
+	static get left() {
+		return new Vector2(-1, 0);
+	}
 
+	static get right() {
+		return new Vector2(1, 0);
+	}
 
+	static get zero() {
+		return new Vector2(0, 0);
+	}
 
-// ;var Vector2 = (function() {
+	static get one() {
+		return new Vector2(1, 1);
+	}
 
-// 	function Vector(x, y) {
-// 		this.x = x || 0;
-// 		this.y = y || 0;
-// 	}
+	static distance(a, b) {
 
-// 	Vector.prototype = {
-// 		constructor: Vector,
-// 		init: function(x, y) {
-// 			this.x = x;
-// 			this.y = y;
-// 		},
-// 		clone: function() {
-// 			return new Vector(this.x, this.y);
-// 		},
-// 		negative: function() {
-// 			this.x = -this.x;
-// 			this.y = -this.y;
-// 		},
-// 		equals: function(v) {
-// 			return this.x == v.x && this.y == v.y;
-// 		},
-// 		add: function(v) {
-// 			this.x += v.x;
-// 			this.y += v.y;
-// 		},
-// 		sub: function(v) {
-// 			this.x -= v.x;
-// 			this.y -= v.y;
-// 		},
-// 		mul: function(v) {
-// 			if(v instanceof Vector) {
-// 				this.x *= v.x;
-// 				this.y *= v.y;
-// 			}
-// 			else {
-// 				this.x *= v;
-// 				this.y *= v;				
-// 			}
-// 		}
-// 		div: function(v) {
-// 			if(v instanceof Vector) {
-// 				this.x /= v.x;
-// 				this.y /= v.y;
-// 			}
-// 			else {
-// 				this.x /= v;
-// 				this.y /= v;				
-// 			}
-// 		},
-// 		sqrdMag: function() {
-// 			return this.x * this.x + this.y * this.y;
-// 		},
-// 		mag: function() {
-// 			return Math.sqrt(this.x * this.x + this.y * this.y);
-// 		},
-// 		norm: function() {
-// 			var mag = this.mag();
-// 			this.div(mag);
-// 		},
-// 		dot: function(v) {
-// 			return this.x * v.x + this.y * v.y;
-// 		},
-// 		angle: function() {
-// 			return Math.atan2(this.y, this.x);
-// 		},
-// 		angleDeg: function() {
-// 			return (Math.atan2(this.y, this.x) * 180 / Math.PI + 360) % 360;
-// 		}
-// 	};
+	 	var dx = a.x - b.x,
+	 		dy = a.y - b.y;
 
-// *
-//  * ==============================================
-//  * STATIC FUNCTION 
-//  * ==============================================
- 
-//  	Vector.equal = function(v1, v2) {
-//  		return v1.x == v2.x && v1.y == v2.y;
-//  	};
+	 	return Math.sqrt(dx * dx + dy * dy);		
+	}
 
-//  	Vector.clone = function(v) {
-//  		return new Vector(v.x, v.y);
-//  	};
+	static get normalization() {
+		return new Vector2(this.x / this.magnitude, this.y / this.magnitude);
+	}
 
-//  	Vector.add = function(v1, v2) {
-//  		return new Vector(v1.x + v2.x, v1.y + v2.y);
-//  	};
+	/**
+	 * ===================
+	 * OTHERS
+	 * ===================
+	 */	
+	normalize() {
+		var magnitude = this.magnitude;
+		this.x /= magnitude;
+		this.y /= magnitude;
+	}
 
-//  	Vector.sub = function(v1, v2) {
-//  		return new Vector(v1.x - v2.x, v1.y - v2.y);
-//  	};
+	add(other) {
+		this.x += other.x;
+		this.y += other.y;
+	}
 
-//  	Vector.mul = function(v1, v2) {
-//  		if(v1 instanceof Vector && v2 instanceof Vector) 
-//  			return new Vector(v1.x * v2.x, v1.y * v2.y);
-//  		else if(v1 instanceof Vector)
-//  			return new Vector(v1.x * v2, v1.y * v2);
-//  		else if(v2 instanceof Vector) 
-//  			return new Vector(v2.x * v1, v2.y * v1);
-//  		else 
-//  			console.error("Vector.mul() needs vector to scalar or vice versa, or vector to vector");
-//  	};
+	sub(other) {
+		this.x -= other.x;
+		this.y -= other.y;
+	}
 
-//  	Vector.div = function(v, s) {
-//  		if(v1 instanceof Vector && v2 instanceof Vector) 
-//  			return new Vector(v1.x / v2.x, v1.y / v2.y);
-//  		else if(v1 instanceof Vector)
-//  			return new Vector(v1.x / v2, v1.y / v2);
-//  		else if(v2 instanceof Vector) 
-//  			return new Vector(v2.x / v1, v2.y / v1);
-//  		else 
-//  			console.error("Vector.div() needs vector to scalar or vice versa, or vector to vector");
-//  	};
+	mul(d) {
+		this.x *= d;
+		this.y *= d;
+	}
 
-//  	Vector.dot = function(v1, v2) {
-//  		return v1.x * v2.x + v1.y * v2.y;
-//  	};
+	div(d) {
+		this.x /= d;
+		this.y /= d;
+	}
 
-//  	Vector.lerp = function(norm, v1, v2) {
+	negate() {
+		this.x = -this.x;
+		this.y = -this.y;
+	}
 
-//  		var v = Vector.sub(v2, v1);
+	equalTo(other) {
+		return this.x === other.x && this.y === other.y;
+	}
 
-//  		v.mul(norm);
-//  		v.add(v1);
-
-//  		return v;
-//  	}
-
-//  	return Vector;
-
-// })();
+	notEqualTo(other) {
+		return this.x !== other.x && this.y !== other.y;
+	}
+	 
+}//END OF CLASS 
