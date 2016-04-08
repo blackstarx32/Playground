@@ -1,8 +1,48 @@
 ﻿
 using UnityEngine;
 
+/// <summary>
+/// Representation of 2D Vector
+/// </summary>
 public struct Vector2D
 {
+
+    #region Static variables
+    public static Vector2D one
+    {
+        get
+        {
+            return new Vector2D(1f, 1f);
+        }
+    }
+
+    public static Vector2D zero
+    {
+        get
+        {
+            return new Vector2D(0, 0);
+        }
+    }
+
+    public static Vector2D right
+    {
+        get
+        {
+            return new Vector2D(1f, 0);
+        }
+    }
+
+    public static Vector2D up
+    {
+        get
+        {
+            return new Vector2D(0f, 1f);
+        }
+    }
+    #endregion
+
+    #region Variables
+
     public float x;
     public float y;
 
@@ -10,23 +50,10 @@ public struct Vector2D
     {
         get
         {
-            return new Vector2D(this.x / this.magnitude, this.y / this.magnitude);
-        }
-    }
-
-    public float angle
-    {
-        get
-        {
-            return Mathf.Atan2(this.y, this.x);
-        }
-    }
-
-    public float angleDegrees
-    {
-        get
-        {
-            return (Mathf.Atan2(this.y, this.x) * Mathf.Rad2Deg + 360) % 360;
+            //return new Vector2D(this.x / this.magnitude, this.y / this.magnitude);
+            Vector2D result = new Vector2D(this.x, this.y);
+            result.Normalize();
+            return result;
         }
     }
 
@@ -46,26 +73,74 @@ public struct Vector2D
         }
     }
 
-    public void Set(float x, float y)
+
+    public float angle
     {
-        this.x = x;
-        this.y = y;
+        get
+        {
+            return Mathf.Atan2(this.y, this.x);
+        }
     }
 
+    public float angleDegrees
+    {
+        get
+        {
+            return (Mathf.Atan2(this.y, this.x) * Mathf.Rad2Deg + 360) % 360;
+        }
+    }
 
+    #endregion
+
+    #region Constructor
     public Vector2D(float x, float y)
     {
         this.x = x;
         this.y = y;
     }
 
-    public Vector2D(Vector2D other)
+    #endregion
+
+    #region Public Methods
+
+    public void Normalize()
     {
-        this.x = other.x;
-        this.y = other.y;
+
+        float magnitude = this.magnitude;
+        if(magnitude > 1E-05f)
+        {
+            this /= magnitude;
+        }
+        else
+        {
+            this = Vector2D.zero;
+        }
+
+
     }
 
+    public void Set(float x, float y)
+    {
+        this.x = x;
+        this.y = y;
+    }
 
+    #endregion
+
+
+    #region Static Methods
+    public static float Distance(Vector2D a, Vector2D b)
+    {
+        return (a - b).magnitude;
+    }
+
+    public static float Dot(Vector2D lhs, Vector2D rhs)
+    {
+        return lhs.x * rhs.x + lhs.y * rhs.y;
+    }
+    #endregion
+
+    #region Operators
     public static Vector2D operator +(Vector2D a, Vector2D b)
     {
         return new Vector2D(a.x + b.x, a.y + b.y);
@@ -100,17 +175,7 @@ public struct Vector2D
     {
         return new Vector2D(a.x * d, a.y * d);
     }
-
-    public static float Distance(Vector2 a, Vector2 b)
-    {
-        return (a - b).magnitude;
-    }
-
-    public void Normalize()
-    {
-        this.x = this.x / this.magnitude;
-        this.y = this.y / this.magnitude;
-    }
+    #endregion
 
 }//END VECTOR2D CLASS
 
