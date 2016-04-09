@@ -51,6 +51,10 @@ class Vector2 {
 		return Math.atan2(this.y, this.x) * 180 / Math.PI;
 	}
 
+	get normalization() {
+		return new Vector2(this.x / this.magnitude, this.y / this.magnitude);
+	}	
+
 	/**
 	 * ===================
 	 * STATICS
@@ -88,8 +92,12 @@ class Vector2 {
 	 	return Math.sqrt(dx * dx + dy * dy);		
 	}
 
-	static get normalization() {
-		return new Vector2(this.x / this.magnitude, this.y / this.magnitude);
+	static dot(a, b) {
+		return a.x * b.x + b.x * b.y;
+	}
+
+	static angleFrom(a, b) {
+		return Math.acos(Vector2.dot(a.normalization, b.normalization));
 	}
 
 	/**

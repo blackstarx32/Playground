@@ -138,6 +138,11 @@ public struct Vector2D
     {
         return lhs.x * rhs.x + lhs.y * rhs.y;
     }
+
+    public static float Angle(Vector2D from, Vector2D to)
+    {
+        return Mathf.Acos(Vector2D.Dot(from.normalize, to.normalize));
+    }
     #endregion
 
     #region Operators
